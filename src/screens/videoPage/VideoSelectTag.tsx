@@ -4,7 +4,11 @@ import {MemberEnums, Members} from '../../types';
 import {useTheme} from '../../theme';
 import {useState} from 'react';
 
-export function VideoSelectTag() {
+export interface IVideoSelectTag {
+  onChange: (selected: MemberEnums | undefined) => void;
+}
+
+export function VideoSelectTag({onChange}: IVideoSelectTag) {
   const {theme} = useTheme();
   const [selected, setSelected] = useState<MemberEnums | undefined>();
 
@@ -50,8 +54,15 @@ export function VideoSelectTag() {
           borderStyle={'solid'}
           borderWidth={0.5}
           borderRadius={12}
+          backgroundColor={'white'}
           onTouchStart={() => {
-            setSelected(info.id);
+            if (selected !== info.id) {
+              setSelected(info.id);
+              onChange(info.id)
+            } else {
+              setSelected(undefined);
+              onChange(undefined);
+            }
           }}
         >
           <Image

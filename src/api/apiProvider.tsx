@@ -6,7 +6,7 @@ export interface IApiProviderProps {
 }
 
 export const ApiProvider: React.FC<IApiProviderProps> = ({children}) => {
-  const requestVideo = async (data: Api.Video.Data): Promise<Api.Video.Response | undefined> => {
+  const requestVideo = async (data: Api.Video.Data): Promise<Api.Video.VideoData | undefined> => {
     let url = Api.Video.Request.url;
     if (data) {
       let paramsArray: string[] = [];
@@ -31,9 +31,10 @@ export const ApiProvider: React.FC<IApiProviderProps> = ({children}) => {
         }
       }
     );
-    console.log( await res.json());
-    if (!!res) {
-      return await res.json();
+    const resJson = await res.json();
+    console.log(resJson);
+    if (!!resJson) {
+      return (resJson.data);
     }
     return undefined;
   };

@@ -7,20 +7,12 @@ import {useApi} from '../api';
 
 export const Root = () => {
   const location = useLocation();
-  const {requestVideo} = useApi();
   const [lightBg, darkBg] = useToken(
     'colors',
     ['coolGray.50', 'blueGray.900'],
     'blueGray.900',
   );
   const bgColor = useColorModeValue(lightBg, darkBg);
-  console.log(bgColor);
-  useEffect(()=>{
-    requestVideo({
-      order: 'pubdate',
-      page: 0
-    })
-  },[]);
 
   return (
     <View
@@ -35,7 +27,7 @@ export const Root = () => {
         <RootRouter/>
       </Box>
       {
-        (['/', '/picture', '/videoPage', '/novel'].includes(location.pathname)) &&
+        (['/', '/picture', '/video', '/novel'].includes(location.pathname)) &&
         <Footer/>
       }
     </View>

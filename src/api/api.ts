@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface ApiContextType {
-  requestVideo: (data: Api.Video.Data) => Promise<Api.Video.Response | undefined>;
+  requestVideo: (data: Api.Video.Data) => Promise<Api.Video.VideoData | undefined>;
 }
 
 export const ApiContext = React.createContext<ApiContextType>(null!);
@@ -76,11 +76,13 @@ export namespace Api {
     }
 
     export interface Response extends IResponse {
-      data: {
-        page: number,
-        numResults: number,
-        result: IVideo[]
-      }
+      data: VideoData
+    }
+
+    export interface VideoData {
+      page: number,
+      numResults: number,
+      result: IVideo[]
     }
 
     export interface IVideo {
@@ -99,7 +101,7 @@ export namespace Api {
       pubdate: number,
       duration: string,
       view: number,
-      danmaku: number,
+      danmaku: string | number,
       reply: number,
       favorite: number,
       coin: number,
